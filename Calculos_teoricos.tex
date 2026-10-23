@@ -1,0 +1,127 @@
+\documentclass[11pt, letterpaper]{article}
+
+% Paquetes básicos
+\usepackage[utf8]{inputenc}
+\usepackage[spanish, es-tabla]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage{siunitx}
+\usepackage{float} % Para forzar la posición de las imágenes con [H]
+
+% Configuración de márgenes e interlineado
+\geometry{top=2.5cm, bottom=2.5cm, left=3cm, right=3cm}
+\setstretch{1.15}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.8em}
+
+\title{\textbf{Anexo de Cálculos Teóricos}\\ \Large Análisis de Circuito RC en Régimen AC Permanente}
+\author{Sara Gómez Muñoz, Juan Manuel Solano Carvajal, Daniel González Bedoya\\
+\textit{Universidad Tecnológica de Pereira}}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Parámetros Generales de la Señal}
+Para ambos montajes experimentales, el circuito RC se alimenta con una señal sinusoidal proveniente del generador de funciones con los siguientes parámetros teóricos establecidos:
+\begin{itemize}
+    \item Frecuencia de la señal ($f$): $120\text{ Hz}$
+    \item Capacitancia nominal ($C$): $47\text{ }\mu\text{F}$
+\end{itemize}
+
+A partir de la frecuencia, se determina la frecuencia angular ($\omega$) de la fuente:
+\begin{align*}
+    \omega &= 2\pi f \\
+    \omega &= 2\pi (120\text{ Hz}) \approx 753,98\text{ rad/s}
+\end{align*}
+
+Con la frecuencia angular y el valor del capacitor, se calcula la reactancia capacitiva ($X_C$), la cual se mantendrá constante para ambos montajes:
+\begin{align*}
+    X_C &= \frac{1}{\omega C} \\
+    X_C &= \frac{1}{(753,98\text{ rad/s}) \cdot (47 \times 10^{-6}\text{ F})} \\
+    X_C &\approx 28,22\text{ }\Omega
+\end{align*}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{"Señeal teorica fuente de voltaje.jpeg"}
+    \caption{Representación teórica de la señal generada por la fuente de voltaje.}
+    \label{fig:fuente_teorica}
+\end{figure}
+
+---
+
+\section{Primera Parte: Montaje con $R = 100\text{ k}\Omega$}
+En la etapa inicial, se configuró el circuito utilizando un resistor de $100\text{ k}\Omega$ ($100.000\text{ }\Omega$). 
+
+\subsection*{Cálculo de la Impedancia Total ($Z$)}
+\begin{align*}
+    Z &= \sqrt{R^2 + X_C^2} \\
+    Z &= \sqrt{(100.000)^2 + (28,22)^2} \\
+    Z &\approx 100.000\text{ }\Omega
+\end{align*}
+Como se puede observar, debido a la magnitud de la resistencia, la reactancia capacitiva es despreciable y la impedancia es prácticamente igual a la resistencia pura.
+
+\subsection*{Cálculo del Ángulo de Desfase ($\phi$)}
+El ángulo de desfase teórico entre el voltaje de la fuente y el voltaje en la resistencia (que está en fase con la corriente) se calcula mediante:
+\begin{align*}
+    \phi &= \arctan\left(\frac{X_C}{R}\right) \\
+    \phi &= \arctan\left(\frac{28,22\text{ }\Omega}{100.000\text{ }\Omega}\right) \\
+    \phi &= \arctan(0,0002822) \\
+    \phi &\approx 0,016^\circ
+\end{align*}
+
+\textbf{Análisis teórico:} El ángulo de desfase calculado es de apenas $0,016^\circ$. Esta demostración matemática explica y justifica por qué experimentalmente no fue posible percibir ninguna diferencia de fase en la pantalla del osciloscopio. El circuito se comporta, para efectos prácticos, como un circuito puramente resistivo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{"Señeal teorica comparacion de fuente de voltaje y voltaje de resistenicias 100k.jpeg"}
+    \caption{Superposición de la señal de la fuente y el voltaje en la resistencia de $100\text{ k}\Omega$. Visualmente se comprueba que el ángulo de desfase es imperceptible.}
+    \label{fig:desfase_100k}
+\end{figure}
+
+---
+
+\section{Segunda Parte: Montaje con $R = 4,7\text{ }\Omega$}
+Con el fin de lograr apreciar el fenómeno transitorio en estado permanente, se redujo drásticamente el valor de la resistencia a $4,7\text{ }\Omega$.
+
+\subsection*{Cálculo de la Impedancia Total ($Z$)}
+\begin{align*}
+    Z &= \sqrt{R^2 + X_C^2} \\
+    Z &= \sqrt{(4,7)^2 + (28,22)^2} \\
+    Z &= \sqrt{22,09 + 796,37} \\
+    Z &\approx 28,61\text{ }\Omega
+\end{align*}
+
+\subsection*{Cálculo del Ángulo de Desfase ($\phi$)}
+Al recalcular el ángulo de desfase para esta nueva configuración:
+\begin{align*}
+    \phi &= \arctan\left(\frac{X_C}{R}\right) \\
+    \phi &= \arctan\left(\frac{28,22\text{ }\Omega}{4,7\text{ }\Omega}\right) \\
+    \phi &= \arctan(6,004) \\
+    \phi &\approx 80,54^\circ
+\end{align*}
+
+\textbf{Análisis teórico:} Al cambiar la resistencia, el valor de la reactancia capacitiva domina la impedancia total del sistema. El desfase teórico alcanza un valor de $80,54^\circ$, acercándose al comportamiento de un circuito puramente capacitivo ($90^\circ$). Esto justifica por qué en esta segunda iteración sí fue posible realizar lecturas con los cursores y apreciar correctamente las figuras de Lissajous.
+
+\subsection*{Cálculo del Tiempo de Retardo Teórico ($t_d$)}
+Para validar experimentalmente este desfase en el dominio del tiempo, se calcula el tiempo de separación (retardo) entre los picos de ambas ondas en la retícula del osciloscopio:
+\begin{align*}
+    t_d &= \frac{\phi}{\omega} \quad \text{(con } \phi \text{ en radianes)} \\
+    t_d &= \frac{80,54^\circ \cdot \left(\frac{\pi}{180^\circ}\right)}{753,98\text{ rad/s}} \\
+    t_d &= \frac{1,405\text{ rad}}{753,98\text{ rad/s}} \\
+    t_d &\approx 1,86 \times 10^{-3}\text{ s} = 1,86\text{ ms}
+\end{align*}
+Este valor de $1,86\text{ ms}$ es la referencia teórica a comparar con la medición obtenida mediante los cursores temporales del osciloscopio digital.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{"Señeal teorica comparacion de fuente de voltaje y voltaje de resistenicias 5.7.jpeg"}
+    \caption{Superposición de la señal de la fuente y el voltaje en la resistencia de $4,7\text{ }\Omega$. Se aprecia de forma clara el desfase teórico de $80,54^\circ$ ($1,86\text{ ms}$).}
+    \label{fig:desfase_4_7}
+\end{figure}
+
+\end{document}
